@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "10523030-c12d-418c-87b2-d64bb39fb023",
+		"name": "BCI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9088883",
+		"_collection_link": "https://grey-comet-2862-1.postman.co/workspace/INACAP---Ecotouch~12e9d02b-34e2-4778-a46d-f163c6b21d3c/collection/9088883-10523030-c12d-418c-87b2-d64bb39fb023?action=share&source=collection_link&creator=9088883"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/users/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"email\": \"sdepolp@gmail.com\",\r\n\t\"password\": \"Sdp1234\",\r\n\t\"phones\": [\r\n\t\t{\r\n\t\t\t\"number\": \"1234567\",\r\n\t\t\t\"cityCode\": \"1\",\r\n\t\t\t\"countryCode\": \"57\"\r\n\t\t}\r\n\t]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -10,6 +10,7 @@ import cl.bci.techtest.infrastructure.security.jwt.JwtUtil;
 import cl.bci.techtest.application.UserService;
 import cl.bci.techtest.domain.UserDataDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +28,18 @@ import java.util.regex.Pattern;
 
 public class UserServiceImpl implements UserService {
 
+
+    @Value("${regex.email}")
+    private String regexEmail;
+
+    @Value("${regex.password}")
+    private String regexPassword;
+
     private final UserRepository userRepository;
     private final PhoneRepository phoneRepository;
 
 
-    public UserServiceImpl(UserRepository userRepository, PhoneRepository phoneRepository) {
+    public UserServiceImpl( UserRepository userRepository, PhoneRepository phoneRepository) {
         this.userRepository = userRepository;
         this.phoneRepository = phoneRepository;
     }
@@ -60,8 +68,8 @@ public class UserServiceImpl implements UserService {
             return "Correo electrónico y contraseña son obligatorios.";
         }
 
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        Pattern emailPattern = Pattern.compile(emailRegex);
+        //String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern emailPattern = Pattern.compile(regexEmail);
         Matcher emailMatcher = emailPattern.matcher(userDataRequest.getEmail());
         if (!emailMatcher.matches()) {
             return "El correo electrónico no tiene un formato válido.";
@@ -71,8 +79,8 @@ public class UserServiceImpl implements UserService {
             return "El correo electrónico ya está registrado.";
         }
 
-        String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d.*\\d).*$";
-        Pattern passwordPattern = Pattern.compile(passwordRegex);
+        //String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d.*\\d).*$";
+        Pattern passwordPattern = Pattern.compile(regexPassword);
         Matcher passwordMatcher = passwordPattern.matcher(userDataRequest.getPassword());
         if (!passwordMatcher.matches()) {
             return "La contraseña no cumple con el formato requerido.";
